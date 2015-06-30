@@ -24,50 +24,96 @@
 				background-size: 100% 100%;
 			}
 			
-			#tmpDiv2 {
-				background:white; 
-				width:100px; 
-				height:100px; 
-				position:absolute;
-				left:210px; 
-				top:50px;
-				border-radius: 50% 50%;
-				transform-style: preserve-3d;
-				box-shadow: 0px 1px 5px 1px white;
-				transition:10s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+			#wrapLogo{
+				height: 80px !important;
+				display: inline !important;
+				text-align: center;
+				opacity: .7;
+				top: 15%;
+				transition:.5s cubic-bezier(0.770, 0.000, 0.175, 1.000);
 			}
 			
-			#tmpDiv2.a {
-				box-shadow: 0px 1px 5px 1px black;
-				border-radius:0 0;
-				transition:1s cubic-bezier(0.770, 0.000, 0.175, 1.000);
-				transform: scale(3) translateY(20px);
+			#wrapLogo.depth_1{
+				top: 0;
+				transform: scale(.6);
+				transition-delay: .7s;
+				transition:.5s cubic-bezier(0.770, 0.000, 0.175, 1.000);
 				
 			}
+			
+			#posBtnGo{
+				position: absolute;
+				width: 100%;
+				bottom: 15%;
+				height: 50px;
+			}
+			#btnGo {
+				position: relative;
+				margin: 0 auto;
+				width: 50px;
+				height: 50px;
+				border-radius: 50% 50%;
+				background: rgba(255,255,255,.7);
+				z-index: 1;
+			}
+			
+			#wrapMain.depth_0 {
+				position: absolute;
+				width: 100%;
+				bottom: 15%;
+				height: 50px;
+				transition:.5s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+			}
+			
+			#mainBackground.depth_0 {
+				position: relative;
+				margin: 0 auto;
+				width: 50px;
+				height: 50px;
+				border-radius: 50% 50%;
+				background: rgba(255,255,255,.3);
+				transform: scale(1.5);
+				transition:.5s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+			}
+			
+			
+			#mainBackground.depth_1 {
+				position: relative;
+				margin: 0 auto;
+				width: 50px;
+				height: 50px;
+				border-radius: 0 0;
+				background: rgba(255,255,255,.5);
+				transform: scale(13) translateY(-10px);
+				transition: .7s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+			}
+			
+
+			
 			
 		</style>
 	</head>
 	<body>
 		<!-- Activity is Wrap -->
-		<div id="wrapStart" class="wrapStyle" >
-<br /><br /><br /><br />
-<br /><br /><br /><br />
-<br /><br /><br /><br />
-			<button id="btnTmp">움직여_DOM</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="btnTmp2">움직여_CSS</button>
-			<div id="tmpDiv" style="background:red; width:100px; height:100px; position:absolute;left:10px; top:50px;">
-				asdf
-			</div>
-			
-			<div id="tmpDiv2">
-				<div class="a">
-				</div>
-				<div>
+		<div id="wrapStart" class="wrapStyle">
+			<div id="posBtnGo">
+				<div id="btnGo">
+					
 				</div>
 			</div>
-			
 		</div>
-		<div id="wrapMain" class="wrapStyle"></div>
+		<div id="wrapMain" class="wrapStyle">
+			<div id="mainBackground">
+				
+			</div>
+			<div id="mainList">
+			</div>
+		</div>
 		<div id="wrapOption" class="wrapStyle"></div>
+		
+		<div id="wrapLogo" class="wrapStyle">
+			<img src="img/logo.png" height="80"  />
+		</div>
 	</body>
 
 	
@@ -77,22 +123,38 @@
 
 	document.addEventListener("deviceready", function(){
 		StatusBar.hide();
-		$('#wrapStart').show();
-
-		$('#btnTmp').click(function(){
-			$('#tmpDiv').animate({'height' : '400px'},1000);
-		})
-		var bool = false;
-		$('#btnTmp2').click(function(){
-			if(!bool){
-				$('#tmpDiv2').addClass('a')
-				bool = true;
-			}else{
-				$('#tmpDiv2').removeClass('a')
-				bool = false;
-			}
+		
+		
+		depth_0();
+		
+		// 함수 선언 부
+		function depth_0(){
+			$('#wrapStart').show();
+			$('#wrapMain').show();
+			$('#wrapMain').addClass('depth_0');
+			$('#mainBackground').addClass('depth_0');
 			
-		})
+			$('#wrapLogo').removeClass('depth_1');
+			$('#wrapMain').removeClass('depth_1');
+			$('#mainBackground').removeClass('depth_1');
+		}
+		
+		function depth_1(){
+			
+			$('#wrapLogo').addClass('depth_1');
+			
+			$('#wrapMain').addClass('depth_1');
+			$('#mainBackground').addClass('depth_1');
+		}
+		
+		
+		//이벤트 뷰
+		$('#btnGo').click(depth_1);
+		document.addEventListener("backbutton", function(){
+			depth_0();
+		}, false);
+
+
 	}, false);
 
 </script>
