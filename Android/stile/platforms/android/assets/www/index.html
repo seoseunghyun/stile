@@ -1,16 +1,104 @@
 <html>
 	<head>
-		<script src="cordova.js"></script>
 		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
+		<script src="cordova.js"></script>
+		<script src="js/jquery.js"></script>
+		
+		<style>
+			
+			body {
+				margin: 0 0;
+				background : black;
+			}
+			
+			.wrapStyle {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				display: none;
+			}
+			
+			#wrapStart {
+				background : url('img/background_1.png');
+				background-size: 100% 100%;
+			}
+			
+			#tmpDiv2 {
+				background:white; 
+				width:100px; 
+				height:100px; 
+				position:absolute;
+				left:210px; 
+				top:50px;
+				border-radius: 50% 50%;
+				transform-style: preserve-3d;
+				box-shadow: 0px 1px 5px 1px white;
+				transition:10s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+			}
+			
+			#tmpDiv2.a {
+				box-shadow: 0px 1px 5px 1px black;
+				border-radius:0 0;
+				transition:1s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+				transform: scale(3) translateY(20px);
+				
+			}
+			
+		</style>
 	</head>
 	<body>
+		<!-- Activity is Wrap -->
+		<div id="wrapStart" class="wrapStyle" >
+<br /><br /><br /><br />
+<br /><br /><br /><br />
+<br /><br /><br /><br />
+			<button id="btnTmp">움직여_DOM</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="btnTmp2">움직여_CSS</button>
+			<div id="tmpDiv" style="background:red; width:100px; height:100px; position:absolute;left:10px; top:50px;">
+				asdf
+			</div>
+			
+			<div id="tmpDiv2">
+				<div class="a">
+				</div>
+				<div>
+				</div>
+			</div>
+			
+		</div>
+		<div id="wrapMain" class="wrapStyle"></div>
+		<div id="wrapOption" class="wrapStyle"></div>
 	</body>
 
 	
 </html>
 
 <script>
+
 	document.addEventListener("deviceready", function(){
 		StatusBar.hide();
+		$('#wrapStart').show();
+
+		$('#btnTmp').click(function(){
+			$('#tmpDiv').animate({'height' : '400px'},1000);
+		})
+		var bool = false;
+		$('#btnTmp2').click(function(){
+			if(!bool){
+				$('#tmpDiv2').addClass('a')
+				bool = true;
+			}else{
+				$('#tmpDiv2').removeClass('a')
+				bool = false;
+			}
+			
+		})
 	}, false);
+
 </script>
+
+
+
+
+
+
